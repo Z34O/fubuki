@@ -43,7 +43,7 @@ def messages():
         threadtype = "inbox"
 
         # Break query into parts
-        unsanitized_query = re.split("("+"|\s".join(keywords)+")", input(f"{BLUE}[messenger] {ORANGE}"))
+        unsanitized_query = re.split("("+"|".join(keywords)+")", input(f"{BLUE}[messenger] {ORANGE}"))
         print(f"{WHITE}", end="") # Make result color white
         if unsanitized_query[0] == "exit":
             os.chdir("..")
@@ -185,4 +185,4 @@ while True:
         except IndexError:
             print(f"{RED}Command 'use' needs 1 valid argument!{WHITE}")
     else:
-        print(f"{RED}{select[0]} is not a valid command!{WHITE}")
+        print(f"{RED}'{select[0]}' is not a valid command!{WHITE}")
