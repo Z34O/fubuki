@@ -109,14 +109,17 @@ def comments():
     while True:
         result = []
 
+        # Default values
         searchkey = r"."
         author = r"."
         datefrom = datetime.strptime("1/1/1969 00:00", dt_format)
         dateuntil = datetime.now()
         on = r"."
 
+        # Reserved keywords \s to make sure it is a keyword and not part of a query value
         keywords = ["search\s", "by\s", "from\s", "until\s", "on\s"]
 
+        # Break query into parts
         unsanitized_query = re.split("("+"|".join(keywords)+")", input(f"{BLUE}[comments] {ORANGE}"))
         query = [token.strip() for token in unsanitized_query if token != '']
         print(f"{WHITE}", end="")
@@ -153,9 +156,9 @@ def comments():
                     result.append(comment)
                     beautify(comment, data["comments"][commentcount])
             except IndexError:
-                break
+                break # Stop if last comment is reached
             except KeyError:
-                pass
+                pass # If no content is found on comment, skip
             commentcount += 1
 
 # Starting point
@@ -171,7 +174,11 @@ while True:
         except FileNotFoundError:
             print(f"{RED}No facebook data file found!{WHITE}")
     elif select[0] == "use":
-        if select[1] == "messages":
-            messages()
-        elif select[1] == "comments":
-            comments()
+        try:
+            if select[1] == "messages":
+                messages()
+            elif select[1] == "comments":
+                comments()
+        except FileNotFoundError:
+                print(f"{RED}No file data found for your chosen module")
+                print(f"{BLUE}TIP: {ORANGE}Make sure you initialized your facebook information directory by 'init <directory>'{WHITE}")
