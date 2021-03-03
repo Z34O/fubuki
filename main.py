@@ -29,7 +29,7 @@ def messages():
         print(f"{sentdate.month}/{sentdate.day}/{sentdate.year} {sentdate.hour}:{sentdate.minute}\n")
 
     # Env variables
-    keywords = ["search", "by", "to", "from", "until", "use"]
+    keywords = ["search", "by", "on", "from", "until", "use"]
 
     while True:
         result = []
@@ -43,19 +43,20 @@ def messages():
         threadtype = "inbox"
 
         # Break query into parts
-        unsanitized_query = re.split("("+"|".join(keywords)+")", input(f"{BLUE}[messenger] {ORANGE}"))
+        unsanitized_query = re.split("("+"|\s".join(keywords)+")", input(f"{BLUE}[messenger] {ORANGE}"))
         print(f"{WHITE}", end="") # Make result color white
         if unsanitized_query[0] == "exit":
             os.chdir("..")
             break
         query = [token.strip() for token in unsanitized_query if token != '']
+        print(query)
         for count, token in enumerate(query):
             next = query[count + 1] if count != len(query)-1 else None
             if token == "search":
                 searchkey = next
             elif token == "by":
                 sender = next
-            elif token == "in":
+            elif token == "on":
                 to = next
             elif token == "from":
                 next += " 00:00" if ":" not in next else ""
@@ -114,7 +115,7 @@ def comments():
         dateuntil = datetime.now()
         on = r"."
 
-        keywords = ["search", "by", "from", "until", "on"]
+        keywords = ["search\s", "by\s", "from\s", "until\s", "on\s"]
 
         unsanitized_query = re.split("("+"|".join(keywords)+")", input(f"{BLUE}[comments] {ORANGE}"))
         query = [token.strip() for token in unsanitized_query if token != '']
