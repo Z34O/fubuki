@@ -180,5 +180,9 @@ while True:
             elif select[1] == "comments":
                 comments()
         except FileNotFoundError:
-                print(f"{RED}No file data found for your chosen module")
-                print(f"{BLUE}TIP: {ORANGE}Make sure you initialized your facebook information directory by 'init <directory>'{WHITE}")
+            print(f"{RED}No file data found for your chosen module")
+            print(f"{BLUE}TIP: {ORANGE}Make sure you initialized your facebook information directory by 'init <directory>'{WHITE}")
+        except IndexError:
+            print(f"{RED}Command 'use' needs 1 valid argument!{WHITE}")
+    else:
+        print(f"{RED}{select[0]} is not a valid command!{WHITE}")
