@@ -3,6 +3,7 @@
 
 from datetime import datetime
 import json
+import glob
 import os
 import re
 
@@ -74,26 +75,28 @@ def messages():
         for conversation in os.listdir():
             try:
                 os.chdir(conversation)
-                data = json.load(open("message_1.json", "r"))
-                msgcount = 0
-                while True:
-                    try:
-                        message = data["messages"][msgcount]
-                        conditions = [bool(re.search(searchkey, message["content"])),
-                                      bool(re.search(to, data["title"])),
-                                      bool(re.search(sender, message["sender_name"])),
-                                      datetime.fromtimestamp(int(message["timestamp_ms"]) / 1000.0) > datefrom,
-                                      datetime.fromtimestamp(int(message["timestamp_ms"]) / 1000.0) < dateuntil]
-                        if all(conditions):
-                            result.append((message, data))
-                            beautify(message, data)
-                    except IndexError:
-                        break # Go to next conversation if last message reached
-                    except KeyError:
-                        pass # Skip conversations without "content"
-                    msgcount += 1
+                for messages in glob.glob('./*.json'): # Iterate through available messages
+                    data = json.load(open(messages, "r"))
+                    msgcount = 0
+                    while True:
+                        try:
+                            message = data["messages"][msgcount]
+                            conditions = [bool(re.search(searchkey, message["content"])),
+                                          bool(re.search(to, data["title"])),
+                                          bool(re.search(sender, message["sender_name"])),
+                                          datetime.fromtimestamp(int(message["timestamp_ms"]) / 1000.0) > datefrom,
+                                          datetime.fromtimestamp(int(message["timestamp_ms"]) / 1000.0) < dateuntil]
+                            if all(conditions):
+                                result.append((message, data))
+                                beautify(message, data)
+                        except IndexError:
+                            break # Go to next conversation if last message reached
+                        except KeyError:
+                            pass # Skip conversations without "content"
+                        msgcount += 1
+
             except FileNotFoundError:
-                pass # Skip empty conversations, without 'message_1.json'
+                pass # Skip empty conversations
             os.chdir("..")
 
         os.chdir("..")
