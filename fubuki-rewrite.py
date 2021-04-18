@@ -1,5 +1,4 @@
-# FUBUKI
-# Facebook User-data Beautifikation and Indexer
+# fubuki-rewrite: not yet implemented
 
 from datetime import datetime
 import json
