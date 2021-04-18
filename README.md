@@ -38,17 +38,24 @@ Then you can either choose from this running list of available modules!
 - comments
 - posts
 
-```
 *Search through comments*
+
+```
 [fubuki] use comments
 [comments] search lol
 ... result here
+```
 
 *...Or by regex*
+
+```
 [comments] search pass(word)?
 ... result here
+```
 
 *Searching through posts*
+
+```
 [fubuki] use posts
 ...
 ```
