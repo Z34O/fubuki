@@ -202,24 +202,25 @@ def posts():
                 next += " 00:00" if ":" not in next else ""
                 dateuntil = datetime.strptime(next, dt_format)
 
-        data = json.load(open("your_posts_1.json", "r"))
-        postcount = 0
+        for data in glob.glob('./*.json'):
+            data = json.load(open("your_posts_1.json", "r"))
+            postcount = 0
 
-        while True:
-            try:
-                post = data[postcount]["data"][0]
-                conditions = [bool(re.search(searchkey, post["post"])),
-                              bool(re.search(searchkey, data[postcount]["title"])),
-                              datetime.fromtimestamp(int(data[postcount]["timestamp"]) / 1000.0) > datefrom,
-                              datetime.fromtimestamp(int(data[postcount]["timestamp"]) / 1000.0) < dateuntil]
-                if all(conditions):
-                    result.append((data, post))
-                    beautify(data[postcount], post)
-            except IndexError:
-                break
-            except KeyError:
-                pass
-            postcount += 1
+            while True:
+                try:
+                    post = data[postcount]["data"][0]
+                    conditions = [bool(re.search(searchkey, post["post"])),
+                                  bool(re.search(searchkey, data[postcount]["title"])),
+                                  datetime.fromtimestamp(int(data[postcount]["timestamp"]) / 1000.0) > datefrom,
+                                  datetime.fromtimestamp(int(data[postcount]["timestamp"]) / 1000.0) < dateuntil]
+                    if all(conditions):
+                        result.append((data, post))
+                        beautify(data[postcount], post)
+                except IndexError:
+                    break
+                except KeyError:
+                    pass
+                postcount += 1
 
 # Starting point for REPL
 # If not used as REPL, make sure you are inside the data directory
