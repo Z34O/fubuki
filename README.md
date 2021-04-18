@@ -54,17 +54,28 @@ Then you can either choose from this running list of available modules!
 ```
 
 You can query more effectively by filtering:
-```
+
 *Filtering by date. Date time format is M(M)/D(D)/YYYY (0:00)* anything in the parentheses are optional
+
+```
 [messages] search here is my bank account from 4/12/2011 until 4/15/2011 7:18
 ... result here
+```
 
 *Filter by who sent the message* (it does not have to be an exact match
+
+```
 [messages] by Shirakami Fubuki
+```
 
 *Filter to whom the message is sent to*
+
+```
 [messages] to Himemori Luna
+```
 
 *Filter in specific conversations only* (also applies to group chats)
+
+```
 [messages] in Natsuiro Matsuri
 ```
