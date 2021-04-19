@@ -2,6 +2,7 @@
 # Facebook User-data Beautifier, Keeper and Intelligence
 
 from datetime import datetime
+import readline # Enable arrow key usage in input()
 import json
 import glob
 import os
@@ -36,7 +37,7 @@ def messages():
         searchkey = r"."
         sender = r"."
         to = r"."
-        datefrom = datetime.strptime("1/1/2004 00:00", dt_format)
+        datefrom = datetime.strptime("1/1/1969 00:00", dt_format)
         dateuntil = datetime.now()
         threadtype = "inbox"
 
